@@ -58,10 +58,8 @@ class CurrentWeather_Main {
   CurrentWeather_Main({ this.temp, this.humidity, this.minTemp, this.maxTemp });
 
   factory CurrentWeather_Main.fromJson(Map<String, dynamic> json) {
-    double temperature = json['temp'].toDouble();
-
     return CurrentWeather_Main(
-      temp: temperature,
+      temp: json['temp'].toDouble(),
       humidity: json['humidity'] as int,
       minTemp: json['temp_min'] as int,
       maxTemp: json['temp_max'] as int
@@ -69,16 +67,16 @@ class CurrentWeather_Main {
   }
 }
 
-class CurrentWeather extends StatelessWidget {
-  final Future<CurrentWeatherModel> post;
+class CurrentWeatherFragment extends StatelessWidget {
+  final Future<CurrentWeatherModel> currentWeather;
 
-  CurrentWeather({Key key, this.post}) : super(key: key);
+  CurrentWeatherFragment({Key key, this.currentWeather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new Center(
       child: FutureBuilder<CurrentWeatherModel>(
-        future: post,
+        future: currentWeather,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var weatherModel = snapshot.data;
@@ -104,12 +102,25 @@ class WeatherPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Text(model.cityName, style: TextStyle(fontSize: 50)),
-        Text(model.weather[0].main, style: Theme.of(context).textTheme.subhead),
-        Text(model.main.temp.toString(), style: Theme.of(context).textTheme.headline)
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(model.cityName, style: TextStyle(fontSize: 50)),
+              Text(model.weather[0].main, style: Theme.of(context).textTheme.subhead),
+              Text(model.main.temp.toString(), style: Theme.of(context).textTheme.headline)
+            ],
+          ),
+        ),
+        ListTile(
+          leading: Text('Today'),
+          title: Icon(Icons.album),
+          trailing: Text(model.weather[0].description),
+        )
+
       ],
     );
   }

@@ -3,7 +3,6 @@ import 'package:flutter_network_app/fragments/current_weather_fragment.dart';
 import 'package:flutter_network_app/fragments/second_fragment.dart';
 import 'package:flutter_network_app/http/current_weather_api.dart';
 
-
 class DrawerItem {
   String title;
   IconData icon;
@@ -22,16 +21,16 @@ class HomePage extends StatefulWidget {
   }
 }
 
-Future<CurrentWeatherModel> fetchPost() async {
-  var http = CurrentWeatherApi();
-  final jsonText = await http.get('/data/2.5/weather');
+Future<CurrentWeatherModel> _fetchCurrentWeather() async {
+  var http = WeatherApi();
+  final jsonText = await http.getCurrentWeather('Auckland');
 
   if (jsonText != null) {
     // If the call to the server was successful, parse the JSON
     return CurrentWeatherModel.fromJson(jsonText);
   } else {
     // If that call was not successful, throw an error.
-//    throw Exception('Failed to load post');
+    throw Exception('Failed to load current weather');
   }
 }
 
@@ -41,8 +40,8 @@ class HomePageState extends State<HomePage> {
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-        return new CurrentWeather(
-          post: fetchPost(),
+        return new CurrentWeatherFragment(
+          currentWeather: _fetchCurrentWeather(),
         );
       case 1:
         return new SecondFragment();
