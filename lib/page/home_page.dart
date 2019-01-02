@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_network_app/fragments/current_weather_fragment.dart';
-import 'package:flutter_network_app/fragments/second_fragment.dart';
-import 'package:flutter_network_app/http/current_weather_api.dart';
+import 'package:flutter_network_app/fragment/current_weather_fragment.dart';
+import 'package:flutter_network_app/fragment/second_fragment.dart';
+import 'package:flutter_network_app/http/weather_api.dart';
+import 'package:flutter_network_app/model/weather_model.dart';
 
 class DrawerItem {
   String title;
