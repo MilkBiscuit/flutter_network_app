@@ -39,7 +39,7 @@ flutter:
 
   assets:
     - assets/icons/ic_clear.png
-    - assets/icons/ic_clouds.png
+    - assets/icons/ic_cloud.png
     - assets/icons/ic_drizzle.png
     - assets/icons/ic_fog.png
     - assets/icons/ic_rain.png

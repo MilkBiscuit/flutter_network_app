@@ -10,8 +10,8 @@ class DrawerItem {
   DrawerItem(this.title, this.icon);
 }
 
-final _london = CityNameId(cityName: "London", cityId: 2643743);
 final _auckland = CityNameId(cityName: "Auckland", cityId: 2193733);
+final _london = CityNameId(cityName: "London", cityId: 2643743);
 final _beijing = CityNameId(cityName: "beijing", cityId: 1816670);
 
 class HomePage extends StatefulWidget {
