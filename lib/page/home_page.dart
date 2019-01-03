@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_network_app/fragment/second_fragment.dart';
 import 'package:flutter_network_app/model/weather_model.dart';
 import 'package:flutter_network_app/page/city_weather_page.dart';
 
@@ -12,7 +10,7 @@ class DrawerItem {
 
 final _auckland = CityNameId(cityName: "Auckland", cityId: 2193733);
 final _london = CityNameId(cityName: "London", cityId: 2643743);
-final _beijing = CityNameId(cityName: "beijing", cityId: 1816670);
+final _beijing = CityNameId(cityName: "Beijing", cityId: 1816670);
 
 class HomePage extends StatefulWidget {
   final drawerItems = [

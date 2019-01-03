@@ -12,21 +12,29 @@ class ThreeHourTile extends StatelessWidget {
   Widget build(BuildContext context) {
     var tempRange = model.main.minTemp.toStringAsFixed(1) + ' ~ ' + model.main.maxTemp.toStringAsFixed(1);
 
-    return ListTile(
-      leading: Container(
-        width: 150,
-        child: Text(
-          DateTimeUtil.formatThreeHourDate(model.currentMilliseconds),
-          style: TextStyle(fontSize: 18)),
-      ),
-      title: Image.asset(
-        WeatherIconUtil.getWeatherIcon(model.weather[0].id),
-        width: 30,
-        height: 30,
-      ),
-      trailing: Container(
-        width: 150,
-        child: Text(tempRange, textAlign: TextAlign.end),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Text(
+                DateTimeUtil.formatThreeHourDate(model.currentMilliseconds),
+                style: TextStyle(fontSize: 18)
+            ),
+          ),
+          Center(
+              child: Image.asset(
+                WeatherIconUtil.getWeatherIcon(model.weather[0].id),
+                width: 30,
+                height: 30,
+              )
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(tempRange, textAlign: TextAlign.end),
+          )
+        ],
       ),
     );
   }

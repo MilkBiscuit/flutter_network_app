@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_network_app/model/weather_model.dart';
-import 'package:flutter_network_app/widget/three_hour_tile.dart';
 
 class CurrentWeatherFragment extends StatelessWidget {
   final Future<CurrentWeatherModel> currentWeather;
