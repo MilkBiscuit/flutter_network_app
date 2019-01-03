@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_network_app/constant/primitive.dart';
 
+class CityNameId {
+  final String cityName;
+  final int cityId;
+
+  CityNameId({this.cityName, this.cityId});
+
+  factory CityNameId.fromJson(Map<String, dynamic> json) {
+    return CityNameId(cityName: json['name'], cityId: json['id']);
+  }
+}
+
 class CurrentWeatherModel extends WeatherModel {
   final String cityName;
   final int cityId;
@@ -24,6 +35,27 @@ class CurrentWeatherModel extends WeatherModel {
         parent.currentMilliseconds,
         parent.weather,
         parent.main,
+    );
+  }
+}
+
+class ForecastModel {
+  final int lineNum;
+  final List<WeatherModel> weatherModels;
+
+  ForecastModel({
+    this.lineNum,
+    this.weatherModels
+  });
+
+  factory ForecastModel.fromJson(Map<String, dynamic> json) {
+    var list = json['list'] as List;
+    var weatherModels = list.map(
+            (input) => WeatherModel.fromJson(input)).toList();
+
+    return ForecastModel(
+      lineNum: json['cnt'] as int,
+      weatherModels: weatherModels
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_network_app/fragment/current_weather_fragment.dart';
+
 import 'package:flutter_network_app/fragment/second_fragment.dart';
-import 'package:flutter_network_app/http/weather_api.dart';
 import 'package:flutter_network_app/model/weather_model.dart';
+import 'package:flutter_network_app/page/city_weather_page.dart';
 
 class DrawerItem {
   String title;
@@ -10,10 +10,15 @@ class DrawerItem {
   DrawerItem(this.title, this.icon);
 }
 
+final _london = CityNameId(cityName: "London", cityId: 2643743);
+final _auckland = CityNameId(cityName: "Auckland", cityId: 2193733);
+final _beijing = CityNameId(cityName: "beijing", cityId: 1816670);
+
 class HomePage extends StatefulWidget {
   final drawerItems = [
-    new DrawerItem("Auckland Weather", Icons.cloud),
-    new DrawerItem("Pizza", Icons.local_pizza),
+    new DrawerItem(_auckland.cityName, Icons.cloud),
+    new DrawerItem(_london.cityName, Icons.language),
+    new DrawerItem(_beijing.cityName, Icons.location_city),
   ];
 
   @override
@@ -22,33 +27,26 @@ class HomePage extends StatefulWidget {
   }
 }
 
-Future<CurrentWeatherModel> _fetchCurrentWeather() async {
-  var http = WeatherApi();
-  final jsonText = await http.getCurrentWeather('Auckland');
-
-  if (jsonText != null) {
-    // If the call to the server was successful, parse the JSON
-    return CurrentWeatherModel.fromJson(jsonText);
-  } else {
-    // If that call was not successful, throw an error.
-    throw Exception('Failed to load current weather');
-  }
-}
-
 class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
+  CityNameId _currentCity;
 
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-        return new CurrentWeatherFragment(
-          currentWeather: _fetchCurrentWeather(),
-        );
+        _currentCity = _auckland;
+        break;
       case 1:
-        return new SecondFragment();
+        _currentCity = _london;
+        break;
+      case 2:
+        _currentCity = _beijing;
+        break;
       default:
-        return new Text("Error");
+        return Text("Error");
     }
+
+    return CityWeatherPage(city: _currentCity,);
   }
 
   _onSelectItem(int index) {

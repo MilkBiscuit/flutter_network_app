@@ -20,7 +20,7 @@ class WeatherApi {
     return await _getApiCall(uri);
   }
 
-  Future<Map<String, dynamic>> getFiveDaysWeather(String cityId) async {
+  Future<Map<String, dynamic>> getFiveDaysForecast(String cityId) async {
     final uri = Uri.https(_BASE_URL, '/data/2.5/forecast', {
       'units': _METRIC_UNIT,
       'apikey': API_KEY,

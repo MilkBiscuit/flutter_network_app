@@ -39,22 +39,10 @@ class WeatherPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(model.cityName, style: TextStyle(fontSize: 50)),
-              Text(model.weather[0].main, style: Theme.of(context).textTheme.subhead),
-              Text(model.main.temp.toString(), style: Theme.of(context).textTheme.headline)
-            ],
-          ),
-        ),
-        ThreeHourTile(
-          model: model
-        )
+        Text(model.cityName, style: TextStyle(fontSize: 50)),
+        Text(model.weather[0].main, style: Theme.of(context).textTheme.subhead),
+        Text(model.main.temp.toString(), style: Theme.of(context).textTheme.headline),
       ],
     );
   }

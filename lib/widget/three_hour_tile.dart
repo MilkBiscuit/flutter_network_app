@@ -12,9 +12,15 @@ class ThreeHourTile extends StatelessWidget {
     var tempRange = model.main.minTemp.toStringAsFixed(1) + ' ~ ' + model.main.maxTemp.toStringAsFixed(1);
 
     return ListTile(
-      leading: Text(formatThreeHourDate(model.currentMilliseconds)),
+      leading: Container(
+        width: 150,
+        child: Text(formatThreeHourDate(model.currentMilliseconds), style: TextStyle(fontSize: 18)),
+      ),
       title: Icon(Icons.album),
-      trailing: Text(tempRange),
+      trailing: Container(
+        width: 150,
+        child: Text(tempRange, textAlign: TextAlign.end),
+      ),
     );
   }
 
