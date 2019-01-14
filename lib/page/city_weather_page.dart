@@ -43,7 +43,8 @@ class CityWeatherPage extends StatefulWidget {
 }
 
 class CityWeatherPageState extends State<CityWeatherPage> {
-  Future<CurrentWeatherModel> _currentWeatherData;
+  bool _isLoading = false;
+  CurrentWeatherModel _currentWeatherData;
   Future<ForecastModel> _forecastData;
 
   @override
@@ -57,19 +58,24 @@ class CityWeatherPageState extends State<CityWeatherPage> {
   void didUpdateWidget(CityWeatherPage old) {
     super.didUpdateWidget(old);
 
-    if (old.city.cityId != widget.city.cityId) {
+    if (old.city.cityId != widget.city.cityId) {      
       _fetchWeatherData();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+
+      return Center(child: CircularProgressIndicator(),);
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         CurrentWeatherFragment(
-          currentWeather: _currentWeatherData,
+          model: _currentWeatherData,
         ),
         Expanded(
           child: ForecastWeatherFragment(
@@ -82,9 +88,17 @@ class CityWeatherPageState extends State<CityWeatherPage> {
 
   void _fetchWeatherData() {
     setState(() {
-      _currentWeatherData = _fetchCurrentWeather(widget.city.cityName);
-      _forecastData = _fetchForecast(widget.city.cityId);
+      _isLoading = true;
     });
+
+    _fetchCurrentWeather(widget.city.cityName)
+      .then((value) {
+        setState(() {
+          _isLoading = false;
+          _currentWeatherData = value;
+        });
+      });
+    _forecastData = _fetchForecast(widget.city.cityId);
   }
 
 }

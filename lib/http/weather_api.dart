@@ -3,16 +3,15 @@ import 'dart:convert' show json, utf8;
 import 'dart:io';
 
 const String API_KEY = '9f234208b8a660c47018bff2fe9d0fd2';
+const String BASE_URL = 'api.openweathermap.org';
+const String METRIC_UNIT = 'metric';
 
 class WeatherApi {
-
-  final String _BASE_URL = 'api.openweathermap.org';
-  final String _METRIC_UNIT = 'metric';
   final HttpClient _httpClient = HttpClient();
 
   Future<Map<String, dynamic>> getCurrentWeather(String cityName) async {
-    final uri = Uri.https(_BASE_URL, '/data/2.5/weather', {
-      'units': _METRIC_UNIT,
+    final uri = Uri.https(BASE_URL, '/data/2.5/weather', {
+      'units': METRIC_UNIT,
       'apikey': API_KEY,
       'q': cityName
     });
@@ -21,8 +20,8 @@ class WeatherApi {
   }
 
   Future<Map<String, dynamic>> getFiveDaysForecast(String cityId) async {
-    final uri = Uri.https(_BASE_URL, '/data/2.5/forecast', {
-      'units': _METRIC_UNIT,
+    final uri = Uri.https(BASE_URL, '/data/2.5/forecast', {
+      'units': METRIC_UNIT,
       'apikey': API_KEY,
       'id': cityId
     });
