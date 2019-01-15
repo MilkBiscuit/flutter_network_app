@@ -45,7 +45,7 @@ class CityWeatherPage extends StatefulWidget {
 class CityWeatherPageState extends State<CityWeatherPage> {
   bool _isLoading = false;
   CurrentWeatherModel _currentWeatherData;
-  Future<ForecastModel> _forecastData;
+  ForecastModel _forecastData;
 
   @override
   void initState() {
@@ -79,7 +79,7 @@ class CityWeatherPageState extends State<CityWeatherPage> {
         ),
         Expanded(
           child: ForecastWeatherFragment(
-            forecastModel: _forecastData,
+            model: _forecastData,
           ),
         )
       ],
@@ -91,14 +91,17 @@ class CityWeatherPageState extends State<CityWeatherPage> {
       _isLoading = true;
     });
 
-    _fetchCurrentWeather(widget.city.cityName)
+    final currentWeather = _fetchCurrentWeather(widget.city.cityName);
+    final forecastData = _fetchForecast(widget.city.cityId);
+
+    Future.wait([currentWeather, forecastData])
       .then((value) {
         setState(() {
           _isLoading = false;
-          _currentWeatherData = value;
+          _currentWeatherData = value[0] as CurrentWeatherModel;
+          _forecastData = value[1] as ForecastModel;
         });
       });
-    _forecastData = _fetchForecast(widget.city.cityId);
   }
 
 }
